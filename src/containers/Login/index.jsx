@@ -16,9 +16,17 @@ import {
 
 export function Login (){
 
-    const schema = yup.object({
-        email: yup.string().email().required(),
-        password: yup.string().min(6).required(),
+    const schema = yup
+    .object({
+        email: yup
+        .string()
+        .email('Digite um e-mail válido')
+        .required('O e-mail é obrigatório'),
+
+        password: yup
+        .string()
+        .min(6, 'A senha deve ter pelo menos 6 caracteres')
+        .required('Digite uma senha'),
     }).required();
 
     const {
@@ -29,6 +37,8 @@ export function Login (){
         resolver: yupResolver(schema),
       })
       
+      console.log(errors)
+
       const onSubmit = (data) => console.log(data)
     
     return(
@@ -46,10 +56,14 @@ export function Login (){
                     <InputContainer>
                         <label htmlFor='email'>Email</label>
                         <input type="email" id="email" {...register("email")} />
+                        <p>{errors?.email?.message}</p> {/*O operador ?. (optional chaining) verifica se a propriedade existe antes de acessá-la,
+                        // evitando erros se for undefined ou null*/}
                     </InputContainer>
+
                     <InputContainer>
                         <label htmlFor='password'>Senha</label>
                         <input type="password" id="password" {...register("password")} />
+                        <p>{errors?.password?.message}</p>
                     </InputContainer>
                     <Button type="submit">Entrar</Button>
                 </Form>
