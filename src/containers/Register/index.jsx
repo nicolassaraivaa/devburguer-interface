@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { toast } from "react-toastify"
 
-import {api} from '../../services/api'
+import { api } from '../../services/api'
 import Logo from '../../assets/logo-login.svg'
 import { Button } from '../../components/Button'
 
@@ -16,10 +16,13 @@ import {
     InputContainer
 } from './styles'
 
-export function Login() {
+export function Register() {
 
     const schema = yup
         .object({
+            name: yup
+                .string()
+                .required('O nome é obrigatório'),
             email: yup
                 .string()
                 .email('Digite um e-mail válido')
@@ -29,6 +32,11 @@ export function Login() {
                 .string()
                 .min(6, 'A senha deve ter pelo menos 6 caracteres')
                 .required('Digite uma senha'),
+
+            confirmPassword: yup
+                .string()
+                .oneOf([yup.ref('password ')], 'As senhas devem ser iguais')
+                .required('Confirme sua senha')
         }).required();
 
     const {
@@ -40,35 +48,44 @@ export function Login() {
     })
 
     const onSubmit = async (data) => {
-        const response = await toast.promise(
-            api.post('/session',{
+
+        try {
+            const { status } = await api.post('/users', {
+                name: data.name,
                 email: data.email,
                 password: data.password
-            }),
-            {
-                pending: 'Verificando seus dados' ,
-                success: 'Seja Bem-vindo(a)',
-                error: 'E-mail ou senha incorreto'
+            },
+                {
+                    validateStatus: () => true
+                }
+            )
+            if(status === 200 || status === 201) {
+                toast.success('Conta cria com sucesso!')
+            }else if(status === 409){
+                toast.error('Email já cadastrado! Faça o login para continuar')
+            } else{
+                throw new Error()
             }
-        )
+        } catch (error) {
+            toast.error('Falha no sistema! tente novamente.')
+        }
         
-        
-
-        console.log(response)
     }
 
-        return (
+    return (
         <Container>
             <LeftContainer>
                 <img src={Logo} alt="logo-decburguer" />
             </LeftContainer>
             <RightContainer>
-                <Title>
-                    Olá, seja bem vindo ao <span>Dev Burguer!</span>
-                    <br />
-                    Acesse com seu <span>Login e senha.</span>
-                </Title>
+                <Title>Criar Conta</Title>
                 <Form onSubmit={handleSubmit(onSubmit)}>
+                    <InputContainer>
+                        <label htmlFor='name'>Nome</label>
+                        <input type="text" id="name" {...register("name")} />
+                        <p>{errors.name?.message}</p>
+                    </InputContainer>
+
                     <InputContainer>
                         <label htmlFor='email'>Email</label>
                         <input type="email" id="email" {...register("email")} />
@@ -81,10 +98,17 @@ export function Login() {
                         <input type="password" id="password" {...register("password")} />
                         <p>{errors.password?.message}</p>
                     </InputContainer>
-                    <Button type="submit">Entrar</Button>
+
+                    <InputContainer>
+                        <label htmlFor='confirmPassword'>Confirmar Senha</label>
+                        <input type="password" id="confirmPassword" {...register("confirmPassword")} />
+                        <p>{errors.confirmPassword?.message}</p>
+                    </InputContainer>
+
+                    <Button type="submit">Criar Conta</Button>
                 </Form>
                 <p>
-                    Não possui conta? <a href="#">Clique aqui.</a>
+                    Já possui conta? <a href="#">Clique aqui.</a>
                 </p>
             </RightContainer>
         </Container>
