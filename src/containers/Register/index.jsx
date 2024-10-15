@@ -6,6 +6,7 @@ import { toast } from "react-toastify"
 import { api } from '../../services/api'
 import Logo from '../../assets/logo-login.svg'
 import { Button } from '../../components/Button'
+import { useNavigate } from "react-router-dom"
 
 import {
     Container,
@@ -13,11 +14,12 @@ import {
     RightContainer,
     Title,
     Form,
-    InputContainer
+    InputContainer,
+    Link
 } from './styles'
 
 export function Register() {
-
+    const navigate = useNavigate()
     const schema = yup
         .object({
             name: yup
@@ -60,7 +62,10 @@ export function Register() {
                 }
             )
             if(status === 200 || status === 201) {
-                toast.success('Conta cria com sucesso!')
+                setTimeout(() => {
+                    navigate('/login')
+                },2000)
+                 toast.success('Conta cria com sucesso, efetue seu Login!')
             }else if(status === 409){
                 toast.error('Email já cadastrado! Faça o login para continuar')
             } else{
@@ -108,7 +113,7 @@ export function Register() {
                     <Button type="submit">Criar Conta</Button>
                 </Form>
                 <p>
-                    Já possui conta? <a href="#">Clique aqui.</a>
+                    Já possui conta? <Link to="/login">Clique aqui.</Link>
                 </p>
             </RightContainer>
         </Container>
