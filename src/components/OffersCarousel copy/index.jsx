@@ -20,7 +20,6 @@ export function OffersCarousel(){
             setOffers(onlyOffers)
 
         }
-
         loadProducts()
     }, [])
 

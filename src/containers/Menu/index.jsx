@@ -3,13 +3,15 @@ import { useState, useEffect} from 'react'
 import { api } from '../../services/api'
 import { formatPrice } from '../../utils/formatPrice'
 import { CardProduct } from '../../components/CardProduct'
-import { useNavigate, useLocation} from 'react-router-dom'
+import { useNavigate, useLocation, Link} from 'react-router-dom'
 import {
     Container, 
     Banner, 
     CategoryMenu, 
     ProductsContainer,
-    CategoryButton
+    CategoryButton,
+    DivBack,
+    ButtonBack
 }from './styles'
 
 export function Menu(){
@@ -110,6 +112,12 @@ export function Menu(){
                     <CardProduct product={product} key={product.id}/>
                 ))}
             </ProductsContainer>
+            <DivBack >
+                <ButtonBack onClick={() => navigate('/')}> 
+                    &lt; Voltar
+                </ButtonBack>
+             </DivBack>
+            
         </Container>
     )
 }
