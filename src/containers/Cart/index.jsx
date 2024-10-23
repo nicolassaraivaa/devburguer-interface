@@ -1,4 +1,5 @@
 import Logo from '../../assets/logo-login.svg'
+import { CartItems, CartResume } from '../../components'
 import { 
     Container,
     Banner,
@@ -14,8 +15,8 @@ export function Cart (){
             </Banner>
             <Title>Checkout - Pedido</Title>
             <Content>
-             {/*<CartItems/>
-                <CartResume/>*/}
+            <CartItems/>
+            <CartResume/>
             </Content>
         </Container>
     )

@@ -11,7 +11,7 @@ export const CartProvider = ({children}) => {
         let newProductsInCart = [] 
 
         if (cartIndex >= 0) {
-            newProductsInCart = cartProducts
+            newProductsInCart = [...cartProducts]
 
             newProductsInCart[cartIndex].quantity =  
                 newProductsInCart[cartIndex].quantity + 1
@@ -22,27 +22,59 @@ export const CartProvider = ({children}) => {
             newProductsInCart = [...cartProducts, product]
             setCartProducts(newProductsInCart)
         }
+        updateLocalStorage(newProductsInCart)
     }
-
-    useEffect(() => {
-        console.log(cartProducts)
-    }, [cartProducts])
 
     const clearCart = () => {
+        setCartProducts([])
 
+        updateLocalStorage([])
     }
 
-    const deleteProduct = (product) => {
+    const deleteProduct = (productId) => {
+        const newCart = cartProducts.filter((prd) => prd.id !== productId)
 
+        setCartProducts(newCart)
+        updateLocalStorage(newCart)
     }
 
+        
     const increaseProduct = (productId) => {
+        const newCart = cartProducts.map((prd)=>{
+            return prd.id === productId ? {...prd, quantity: prd.quantity + 1} : prd
+        })
 
+        setCartProducts(newCart)
+        updateLocalStorage(newCart)
     }
 
     const decreaseProduct = (productId) => {
+        const cartIndex = cartProducts.findIndex((prd) => prd.id === productId)
 
+        if(cartProducts[cartIndex].quantity > 1){
+            const newCart = cartProducts.map((prd)=>{
+                return prd.id === productId ? {...prd, quantity: prd.quantity - 1} : prd
+            })
+
+            setCartProducts(newCart)
+            updateLocalStorage(newCart)
+        } else{
+            deleteProduct(productId)
+        }
     }
+
+    const updateLocalStorage = (products) => {
+        localStorage.setItem('devburger:cartIfo', JSON.stringify(products))
+    }
+
+    useEffect(() => {
+        const clientCartData = localStorage.getItem('devburger:cartIfo')
+
+        if(clientCartData){
+            setCartProducts(JSON.parse(clientCartData))
+        }
+
+    }, [])
 
     return(
         <cartContext.Provider 

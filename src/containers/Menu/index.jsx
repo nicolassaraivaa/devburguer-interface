@@ -18,6 +18,7 @@ export function Menu(){
     const [categories, setCategories] = useState([])
     const [products, setProducts] = useState([])
     const [filterproducts, setFilterproducts] = useState([])
+    console.log(products.quantity)
 
     const navigate = useNavigate()
 
@@ -52,7 +53,6 @@ export function Menu(){
             setProducts(newProducts)
 
         }
-
         loadCategories()
         loadProducts()
 

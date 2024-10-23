@@ -8,7 +8,7 @@ export const ContainerButton = styled.button`
     border-radius: 5px;
     font-size: 30px;
     color: #ffff;
-    cursor: grab;
+    cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
     &:hover{
