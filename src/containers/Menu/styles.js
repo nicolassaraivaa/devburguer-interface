@@ -97,5 +97,6 @@ export const ButtonBack = styled(Link)`
     &:active{
         opacity: 0.5;
     }
+    
 `
 

@@ -58,3 +58,27 @@ export const Content = styled.div`
     padding: 40px;
     margin: 0 auto;
 `
+
+export const DivBack = styled.div`
+    display: flex;
+    justify-content: center;
+
+`
+
+export const ButtonBack = styled.button`
+    font-size: 20px;
+    color: #5C2669;
+    font-weight: 600;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+
+    &:hover{
+        opacity: 0.8;
+    }
+
+    &:active{
+        opacity: 0.5;
+    }
+    
+`

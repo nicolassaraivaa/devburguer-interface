@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link as ReactLink } from "react-router-dom"; 
 
 import BackgroundLogin from '../../assets/background-login.svg'
-import Background from '../../assets/background.png'
+import Background from '../../assets/background.svg'
 
 
 export const Container = styled.div`

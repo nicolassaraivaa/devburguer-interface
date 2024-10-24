@@ -1,13 +1,17 @@
 import Logo from '../../assets/logo-login.svg'
 import { CartItems, CartResume } from '../../components'
+import { useNavigate } from 'react-router-dom'
 import { 
     Container,
     Banner,
     Title,
-    Content
+    Content,
+    DivBack,
+    ButtonBack
 } from './styles'
 
 export function Cart (){
+    const navigate = useNavigate()
     return(
         <Container>
             <Banner>
@@ -18,6 +22,11 @@ export function Cart (){
             <CartItems/>
             <CartResume/>
             </Content>
+            <DivBack >
+                <ButtonBack onClick={() => navigate('/')}> 
+                    &lt; Voltar
+                </ButtonBack>
+             </DivBack>
         </Container>
     )
 }
