@@ -25,52 +25,37 @@ export function CartResume() {
 
     const submitOrder = async () => {
         const products = cartProducts.map((product) => {
-            return { 
-                id: product.id, 
-                quantity: product.quantity, 
-                price: product.price}
+            return {
+                id: product.id,
+                quantity: product.quantity,
+                price: product.price
+            }
         })
 
-        try{
-            const {data} = await api.post('/create-payment-intent', {products})
-            navigate('/checkout' ,{
+        try {
+            const { data } = await api.post('/create-payment-intent', { products })
+
+            navigate('/checkout', {
                 state: data,
             })
-        }catch(err){
-            toast.error('Erro, tente novamente!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                });
-        }
 
-
-        {/*try {
-            const { status } = await api.post('/orders', {products}, {
-                validateStatus: () => true
-            }
-            )
-            if (cartProducts.length === 0){
-                toast.error('Carrinho Vazio, acrescente um produto!')
-            }else if (status === 200 || status === 201) {
-                setTimeout(() => {
-                    navigate('/')
-                }, 2000)
-                clearCart()
-                toast.success('Pedido Realizado com Sucesso!')
-            } else if (status === 409) {
-                toast.error('Falha ao realizar seu pedido')
+        } catch (err) {
+            if (cartProducts.length === 0) {
+                toast.error('Carrinho vazio, tente novamente!')
             } else {
-                throw new Error()
+                toast.error('Erro, tente novamente!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             }
-        } catch (error) {
-            toast.error('Falha no sistema! tente novamente.')
-        }*/}
+
+        }
     }
 
     return (

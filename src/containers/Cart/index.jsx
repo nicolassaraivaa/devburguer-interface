@@ -28,5 +28,6 @@ export function Cart (){
                 </ButtonBack>
              </DivBack>
         </Container>
+        
     )
 }

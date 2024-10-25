@@ -12,7 +12,7 @@ import stripePromise from './config/stripeConfig'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AppProvider>
-      <Elements stripe={stripePromise}>
+      <Elements stripe={stripePromise} >
         <RouterProvider router={router} />
       </Elements>
       <GlobalStyles />
