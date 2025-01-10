@@ -8,6 +8,10 @@ export * from './OffersCarousel copy'
 export * from './Table'
 export * from './CartItems'
 export * from './Stripe/CheckoutForm/'
+export * from './SideNavAdmin'
+
+
+
 
 
 
