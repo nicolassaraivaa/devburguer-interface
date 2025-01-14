@@ -13,7 +13,7 @@ import {
     EditProduct,
     Products
 } from "../containers";
-import { UserLayout } from "../layouts/userLayout";
+import { UserLayout } from "../layouts/UserLayout";
 import { AdminLayout } from "../layouts/AdminLayout";
 
 export function Router() {
