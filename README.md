@@ -36,7 +36,7 @@ Este é o front-end do **DevBurguer**, uma aplicação de e-commerce para pedido
 
 1. ##  Clone o repositório:
    ```bash
-   gh repo clone nicolassaraivaa/padajao-interface-main
+   gh repo clone nicolassaraivaa/devburguer-interface
    cd padajao-interface
 
 2. ## Instale as dependências:
